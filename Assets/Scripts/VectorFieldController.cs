@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class VectorFieldController : MonoBehaviour
 {
@@ -67,7 +68,7 @@ public class VectorFieldController : MonoBehaviour
         topCoordinates000 = transform.position - new Vector3(x0, y0, z0);
 
         // On center of the first cube
-        coordinates000 = topCoordinates000 - new Vector3(cellSize / 2f, cellSize / 2f, cellSize / 2f);
+        coordinates000 = topCoordinates000 + new Vector3(cellSize / 2f, cellSize / 2f, cellSize / 2f);
     }
 
     public Vector3Int VectorIndexInWorldCoordinates(Vector3 worldCoordinates)
@@ -94,7 +95,7 @@ public class VectorFieldController : MonoBehaviour
     public Vector3 VectorValueInWorldCoordinates(Vector3 worldCoordinates)
     {
         Vector3Int vectorIndex = VectorIndexInWorldCoordinates(worldCoordinates);
-        Debug.Log($"VectorValueInWorldCoordinates.vectorIndex: {vectorIndex}");
+        // Debug.Log($"VectorValueInWorldCoordinates.vectorIndex: {vectorIndex}");
         if(vectorIndex.x == -1)
         {
             return Vector3.zero;
@@ -102,5 +103,10 @@ public class VectorFieldController : MonoBehaviour
         {
             return vectors[vectorIndex.x, vectorIndex.y, vectorIndex.z];
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        VectorFieldGizmos.DrawGizmos(this);
     }
 }
