@@ -1,0 +1,3 @@
+- Redraw the Handles when the GameObject.Transform has changed, but I don't see how to detect this event: https://forum.unity.com/threads/more-transform-callbacks.263448/#post-7750893
+- I am not sure that the Vectors are going across the whole circumference.
+- GameObject rotation doesn't affect Handles and Vectors

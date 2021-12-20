@@ -7,15 +7,15 @@ public class VectorFieldEditor : Editor
     public void OnSceneGUI()
     {
         var t = target as VectorFieldController;
-        float x0 = ((t.cellsX / 2f) * t.cellSize) - (t.cellSize / 2f);
-        float y0 = ((t.cellsY / 2f) * t.cellSize) - (t.cellSize / 2f);
-        float z0 = ((t.cellsZ / 2f) * t.cellSize) - (t.cellSize / 2f);
 
-        // Coordinate 000
-        Vector3 coordinate000 = t.transform.position - new Vector3(x0, y0, z0);
-        Handles.color = Color.magenta;
-        Handles.DrawLine(t.transform.position, coordinate000);
+        // Coordinates 000
+        Handles.color = Color.white;
+        Handles.DrawLine(t.transform.position, t.coordinates000);
+        Handles.color = Color.red;
+        Handles.DrawLine(t.coordinates000, t.topCoordinates000);
 
+        // Draw Cubes
+        Handles.color = Color.yellow;
         for (int x = 0; x < t.cellsX; x++)
         {
             for (int y = 0; y < t.cellsY; y++)
@@ -24,9 +24,9 @@ public class VectorFieldEditor : Editor
                 {
                     Vector3 cubeCoordinates =
                         new Vector3(
-                            coordinate000.x + (x * t.cellSize),
-                            coordinate000.y + (y * t.cellSize),
-                            coordinate000.z + (z * t.cellSize)
+                            t.coordinates000.x + (x * t.cellSize),
+                            t.coordinates000.y + (y * t.cellSize),
+                            t.coordinates000.z + (z * t.cellSize)
                         );
 
                     Vector3 cubeDimensions =
@@ -37,6 +37,36 @@ public class VectorFieldEditor : Editor
                         );
 
                     Handles.DrawWireCube(cubeCoordinates, cubeDimensions);
+                }
+            }
+        }
+
+        // Draw Vectors
+        if(t.initialized)
+        {
+            Handles.color = Color.magenta;
+
+            for (int x = 0; x < t.cellsX; x++)
+            {
+                for (int y = 0; y < t.cellsY; y++)
+                {
+                    for (int z = 0; z < t.cellsZ; z++)
+                    {
+                        Vector3 vectorCoordinates =
+                            new Vector3(
+                                t.coordinates000.x + (x * t.cellSize),
+                                t.coordinates000.y + (y * t.cellSize),
+                                t.coordinates000.z + (z * t.cellSize)
+                            );
+
+                        Handles.ArrowHandleCap(
+                            0,
+                            vectorCoordinates,
+                            Quaternion.LookRotation(t.vectors[x, y, z]),
+                            t.cellSize,
+                            EventType.Repaint
+                        );
+                    }
                 }
             }
         }
