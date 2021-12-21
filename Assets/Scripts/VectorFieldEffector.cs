@@ -7,8 +7,6 @@ using UnityEditor;
 public class VectorFieldEffector : MonoBehaviour
 {
     [SerializeField] public VectorFieldController vectorFieldController;
-    [SerializeField] float rotateSpeed = 100f;
-    [SerializeField] float moveSpeed = 10f;
     [SerializeField] Vector3 forceEffect;
     Rigidbody rb;
 
@@ -35,14 +33,14 @@ public class VectorFieldEffector : MonoBehaviour
         if(forceEffect != Vector3.zero)
         {
             ApplyRotation(forceEffect);
-            rb.velocity = transform.forward * moveSpeed;
+            rb.velocity = transform.forward * vectorFieldController.force;
         }
     }
 
     void ApplyRotation(Vector3 rotation)
     {
         Quaternion targetRotation = Quaternion.LookRotation(rotation.normalized);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, vectorFieldController.force * 10f * Time.deltaTime);
     }
 
     void OnDrawGizmos()

@@ -9,6 +9,8 @@ public class VectorFieldController : MonoBehaviour
     [SerializeField] public int cellsX = 5;
     [SerializeField] public int cellsY = 5;
     [SerializeField] public int cellsZ = 5;
+    [SerializeField] public float force = 1f;
+
 
     [SerializeField] float seed = 1;
     [SerializeField] float frequency = 0.1f;
