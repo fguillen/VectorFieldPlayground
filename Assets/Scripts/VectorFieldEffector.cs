@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class VectorFieldEffector : MonoBehaviour
 {
-    [SerializeField] VectorFieldController vectorFieldController;
+    [SerializeField] public VectorFieldController vectorFieldController;
     [SerializeField] float rotateSpeed = 100f;
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] Vector3 forceEffect;
@@ -15,15 +15,22 @@ public class VectorFieldEffector : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        if(rb == null || vectorFieldController == null) {
-            throw new Exception("rb and vectorField are required");
+        if(rb == null) {
+            throw new Exception("rb is required");
+        }
+    }
+
+    void Start()
+    {
+        if(vectorFieldController == null) {
+            throw new Exception("vectorField is required");
         }
     }
 
     void LateUpdate()
     {
         forceEffect = vectorFieldController.VectorValueInWorldCoordinates(transform.position);
-        Debug.Log($"forceEffect: {forceEffect}");
+        // Debug.Log($"forceEffect: {forceEffect}");
         if(forceEffect != Vector3.zero)
         {
             ApplyRotation(forceEffect);

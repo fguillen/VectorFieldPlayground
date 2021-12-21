@@ -51,7 +51,7 @@ public class VectorFieldController : MonoBehaviour
                     float noise = PerlinNoise3D.value(x, y, z, seed, frequency, amplitude, persistence, octave);
                     float noisePI = noise * Mathf.PI;
                     Vector3 noiseDirection = new Vector3(Mathf.Cos(noisePI), Mathf.Sin(noisePI), Mathf.Cos(noisePI));
-                    Debug.Log($"[{x}, {y}, {z}] : {noiseDirection.normalized}");
+                    // Debug.Log($"[{x}, {y}, {z}] : {noiseDirection.normalized}");
                     vectors[x, y, z] = noiseDirection.normalized;
                 }
             }
