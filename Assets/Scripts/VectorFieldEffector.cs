@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class VectorFieldEffector : MonoBehaviour
 {
@@ -42,6 +43,21 @@ public class VectorFieldEffector : MonoBehaviour
     {
         Quaternion targetRotation = Quaternion.LookRotation(rotation.normalized);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+    }
+
+    void OnDrawGizmos()
+    {
+        if(forceEffect != Vector3.zero)
+        {
+            Handles.color = Color.magenta;
+            Handles.ArrowHandleCap(
+                0,
+                transform.position,
+                Quaternion.LookRotation(forceEffect),
+                1f,
+                EventType.Repaint
+            );
+        }
     }
 
 }

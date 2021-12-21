@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vectorFieldController: {fileID: 0}
-  rotateSpeed: 50
+  rotateSpeed: 150
   moveSpeed: 10
   forceEffect: {x: 0, y: 0, z: 0}
 --- !u!135 &8037833480609003713

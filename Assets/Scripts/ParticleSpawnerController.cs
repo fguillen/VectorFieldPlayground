@@ -27,6 +27,7 @@ public class ParticleSpawnerController : MonoBehaviour
         GameObject particle = Instantiate(particlePrefab, transform.position, Quaternion.identity, transform);
         particle.GetComponent<Rigidbody>().AddForce(Vector3.down * 10f, ForceMode.Impulse);
         particle.GetComponent<VectorFieldEffector>().vectorFieldController = vectorFieldController;
+        particle.transform.rotation = Quaternion.LookRotation(Vector3.down);
         nextParticleAt = Time.time + (1f / particlesPerSecond);
     }
 }
